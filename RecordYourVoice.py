@@ -20,17 +20,17 @@ if max_val > 0:
 
 sf.write("un.wav", un, sampling_rate, subtype="PCM_16")
 
-print("Recording v[n] ...")
-vn = sd.rec(int(duration_v * sampling_rate),
-            samplerate=sampling_rate,
-            channels=1,
-            dtype='float32')
-sd.wait()
+# print("Recording v[n] ...")
+# vn = sd.rec(int(duration_v * sampling_rate),
+#             samplerate=sampling_rate,
+#             channels=1,
+#             dtype='float32')
+# sd.wait()
 
-max_val = np.max(np.abs(vn))
-if max_val > 0:
-    vn = vn / max_val
+# max_val = np.max(np.abs(vn))
+# if max_val > 0:
+#     vn = vn / max_val
 
-sf.write("vn.wav", vn, sampling_rate, subtype="PCM_16")
+# sf.write("vn.wav", vn, sampling_rate, subtype="PCM_16")
 
 print("Recording completed.")

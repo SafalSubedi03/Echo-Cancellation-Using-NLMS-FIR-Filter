@@ -13,7 +13,6 @@ D = int(delay_in_s*Fs)              #how far the sample is delayed
 dn = np.zeros(len(un) + D)
 dn[:len(un)] = un
 dn[D:] += alpha * un + 0.00 * np.random.randn(len(un)) #No bg noise for now 
-dn = vn + un
 filename = "dn"
 
 
