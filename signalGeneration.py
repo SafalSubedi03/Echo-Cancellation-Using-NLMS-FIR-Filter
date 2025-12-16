@@ -3,10 +3,10 @@ import soundfile as sf
 
 
 un,Fs = sf.read("un.wav")
-vn,_ = sf.read("vn.wav")
+
 #Echo Simulation Parameters
 alpha =  0.9                      #echo attenuation
-delay_in_s = 0.8
+delay_in_s = 1
 D = int(delay_in_s*Fs)              #how far the sample is delayed
 
 

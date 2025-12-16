@@ -7,12 +7,12 @@ Along the way, it shows you plots of the original, filtered, and error signals, 
 
 ## Features
 * Record audio directly from your microphone.
-* Uses a **Normalized LMS (NLMS) adaptive filter** to reduce noise.
 * Produces three main outputs:
 
   * **Filtered signal (`y[n]`)** – the cleaned-up audio
   * **Error signal (`e[n]`)** – what the filter couldn’t remove
   * **Original input (`u[n]`)** – your raw recording
+  * * **Original input (`d[n]`)** – echo added to the raw recording u[n]
 * Saves audio files (`yn.wav` and `error.wav`) for playback.
 * Plots all signals so you can see how well the filter works.
 * Easy to tweak filter settings like length, step size, and sampling rate.
@@ -54,6 +54,18 @@ This will record your voice as the input signal `u[n]` and save it as `un.wav`.
 ### 2. Run the adaptive filter
 
 ```bash
+python signalGeneration.py
+```
+
+* The script adds synthetic echo to the input singal u[n]
+* It generates `dn.wav` (the echoed audio).
+
+
+---
+
+### 3. Run the adaptive filter
+
+```bash
 python main.py
 ```
 
@@ -70,9 +82,10 @@ python main.py
 ## How It Works
 
 1. Record or generate an input signal `u[n]`.
-2. Provide a desired signal `d[n]` (the "clean" version or a reference).
-3. The NLMS filter iteratively adjusts its weights to minimize the difference between `d[n]` and the filter output `y[n]`.
-4. The result is a filtered signal that keeps the good parts and reduces noise as much as possible.
+2. Generate a desired signal `d[n]` 
+3. The NLMS filter iteratively adjusts its weights to aproximate `y[n]` to the `u[n]` part of the signal `d[n]`
+4. The result is a filtered signal that is the signal with removed echo.
+ 
 
 ---
 
