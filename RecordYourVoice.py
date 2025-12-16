@@ -2,22 +2,35 @@ import numpy as np
 import sounddevice as sd
 import soundfile as sf
 
-# Parameters
-duration = 5
-filename = 'my_recording.wav'
 sampling_rate = 44100
 
-# Record audio (mono)
-print("Recording started...")
-audio_data = sd.rec(int(duration * sampling_rate), samplerate=sampling_rate, channels=1, dtype='float32')
+duration_u = 10
+duration_v = 10
+
+print("Recording u[n] ...")
+un = sd.rec(int(duration_u * sampling_rate),
+            samplerate=sampling_rate,
+            channels=1,
+            dtype='float32')
 sd.wait()
-print("Recording finished.")
 
-# Normalize
-max_val = np.max(np.abs(audio_data))
+max_val = np.max(np.abs(un))
 if max_val > 0:
-    audio_data = audio_data / max_val
+    un = un / max_val
 
-# Save as 16-bit WAV
-sf.write(filename, audio_data, sampling_rate, subtype='PCM_16')
-print(f"Audio saved to {filename}")
+sf.write("un.wav", un, sampling_rate, subtype="PCM_16")
+
+print("Recording v[n] ...")
+vn = sd.rec(int(duration_v * sampling_rate),
+            samplerate=sampling_rate,
+            channels=1,
+            dtype='float32')
+sd.wait()
+
+max_val = np.max(np.abs(vn))
+if max_val > 0:
+    vn = vn / max_val
+
+sf.write("vn.wav", vn, sampling_rate, subtype="PCM_16")
+
+print("Recording completed.")
